@@ -4,8 +4,38 @@ import {nudge} from 'trans-render/lib/nudge.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDeslottedController implements BeDeslottedActions{
-    onProps({}: this){
+    
+    onProps({props, proxy}: this){
+        proxy.addEventListener('slotchange', this.handleSlotChange);
+        this.getProps(this);
+    }
 
+    getProps({props, proxy}: this){
+        const propArr = Array.isArray(props) ? props : [props];
+        let host: any;
+        const assignedNodes = proxy.assignedNodes();
+        for(const assignedNode of assignedNodes){
+            for(const prop of propArr){
+                if((<any>assignedNode)[prop] !== undefined){
+                    if(host === undefined){
+                        host = (<any>proxy.getRootNode()).host;
+                    }
+                    host[prop] = (<any>assignedNode)[prop];
+                }
+            }
+        }
+    }
+
+    finale(){
+        this.disconnect(this);
+    }
+
+    handleSlotChange(e: Event){
+        this.getProps(this);
+    }
+
+    disconnect({proxy}: this){
+        proxy.removeEventListener('slotchange', this.handleSlotChange);
     }
 }
 
@@ -21,7 +51,12 @@ define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedA
         propDefaults:{
             virtualProps: ['props'],
             upgrade,
-            ifWantsToBe
+            ifWantsToBe,
+            finale: 'finale'
         }
+    },
+    complexPropDefaults:{
+        controller: BeDeslottedController
     }
 });
+register(ifWantsToBe, upgrade, tagName);

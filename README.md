@@ -1,6 +1,6 @@
-# be-deslotted [TODO]
+# be-deslotted
 
-Transfer values from slot to host.
+Transfer values from light children to host.
 
 ```html
 <my-custom-element>

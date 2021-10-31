@@ -3,9 +3,10 @@ export interface BeDeslottedVirtualProps{
 }
 
 export interface BeDeslottedProps extends BeDeslottedVirtualProps{
-    proxy: Element & BeDeslottedVirtualProps
+    proxy: HTMLSlotElement & BeDeslottedVirtualProps
 }
 
 export interface BeDeslottedActions{
     onProps(self: this): void;
+    finale(): void;
 }

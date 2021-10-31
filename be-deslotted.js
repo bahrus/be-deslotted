@@ -41,7 +41,8 @@ define({
             upgrade,
             ifWantsToBe,
             finale: 'finale',
-            primaryProp: 'props'
+            primaryProp: 'props',
+            forceVisible: true,
         },
         actions: {
             onProps: {

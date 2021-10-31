@@ -52,7 +52,8 @@ define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedA
             virtualProps: ['props'],
             upgrade,
             ifWantsToBe,
-            finale: 'finale'
+            finale: 'finale',
+            primaryProp: 'props'
         }
     },
     complexPropDefaults:{

@@ -42,6 +42,11 @@ define({
             ifWantsToBe,
             finale: 'finale',
             primaryProp: 'props'
+        },
+        actions: {
+            onProps: {
+                ifAllOf: ['props']
+            }
         }
     },
     complexPropDefaults: {

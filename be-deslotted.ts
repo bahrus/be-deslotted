@@ -54,6 +54,11 @@ define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedA
             ifWantsToBe,
             finale: 'finale',
             primaryProp: 'props'
+        },
+        actions:{
+            onProps:{
+                ifAllOf:['props']
+            }
         }
     },
     complexPropDefaults:{

@@ -1,10 +1,41 @@
 {
   "name": "be-deslotted",
   "version": "0.0.5",
-  "description": "",
-  "main": "index.js",
+  "description": "Transfer values from light children to host.",
+  "main": "be-deslotted.js",
+  "module": "be-deslotted.js",
+  "keywords": [
+    "web components",
+    "web component",
+    "custom elements",
+    "custom element",
+    "slot",
+    "slots"
+  ],
+  "dependencies": {
+    "be-decorated": "0.0.38",
+    "be-hive": "0.0.9",
+    "trans-render": "0.0.431"
+  },
+  "devDependencies": {
+    "xtal-test": "0.0.52",
+    "@skypack/package-check": "0.2.2",
+    "@custom-elements-manifest/analyzer": "0.5.7",
+    "xtal-editor": "0.0.90",
+    "xtal-shell": "0.0.25"
+  },
+  "exports": {
+    ".": "./be-deslotted.js",
+    "./be-deslotted.js": "./be-deslotted.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "./types.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test-all.js",
+    "serve": "node node_modules/xtal-test/serve.js",
+    "package-check": "package-check"
   },
   "repository": {
     "type": "git",

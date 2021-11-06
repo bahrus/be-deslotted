@@ -1,6 +1,6 @@
 {
   "name": "be-deslotted",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Transfer values from light children to host.",
   "main": "be-deslotted.js",
   "module": "be-deslotted.js",

@@ -2,6 +2,8 @@
 
 Transfer values from light children to host.
 
+[![Actions Status](https://github.com/bahrus/be-deslotted/workflows/CI/badge.svg)](https://github.com/bahrus/be-deslotted/actions?query=workflow%3ACI)
+
 ```html
 <my-custom-element>
     #shadow

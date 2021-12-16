@@ -42,7 +42,7 @@ define({
             ifWantsToBe,
             finale: 'finale',
             primaryProp: 'props',
-            forceVisible: true,
+            forceVisible: ['slot'],
         },
         actions: {
             onProps: {

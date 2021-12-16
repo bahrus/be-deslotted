@@ -54,7 +54,7 @@ define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedA
             ifWantsToBe,
             finale: 'finale',
             primaryProp: 'props',
-            forceVisible: true,
+            forceVisible: ['slot'],
         },
         actions:{
             onProps:{

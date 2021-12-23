@@ -13,9 +13,9 @@
     "slots"
   ],
   "dependencies": {
-    "be-decorated": "0.0.53",
-    "be-hive": "0.0.14",
-    "trans-render": "0.0.438"
+    "be-decorated": "0.0.56",
+    "be-hive": "0.0.15",
+    "trans-render": "0.0.441"
   },
   "devDependencies": {
     "xtal-test": "0.0.54",

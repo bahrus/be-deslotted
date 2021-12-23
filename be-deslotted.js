@@ -45,9 +45,7 @@ define({
             forceVisible: ['slot'],
         },
         actions: {
-            onProps: {
-                ifAllOf: ['props']
-            }
+            onProps: 'props'
         }
     },
     complexPropDefaults: {

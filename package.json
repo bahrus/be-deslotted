@@ -13,15 +13,15 @@
     "slots"
   ],
   "dependencies": {
-    "be-decorated": "0.0.57",
-    "be-hive": "0.0.16",
-    "trans-render": "0.0.442"
+    "be-decorated": "0.0.62",
+    "be-hive": "0.0.17",
+    "trans-render": "0.0.445"
   },
   "devDependencies": {
     "xtal-test": "0.0.54",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.5.7",
-    "xtal-editor": "0.0.103",
+    "xtal-editor": "0.0.116",
     "xtal-shell": "0.0.25"
   },
   "exports": {

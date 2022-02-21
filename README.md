@@ -13,3 +13,5 @@ Transfer values from light children to host.
 ```
 
 my-custom-element's href property gets set to //cnn.com
+
+Props can be mapped via propMap [TODO]  Show example.

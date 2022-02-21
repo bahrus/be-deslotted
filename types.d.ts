@@ -1,5 +1,6 @@
 export interface BeDeslottedVirtualProps{
     props: string | string[];
+    propMap: {[key: string]: string};
 }
 
 export interface BeDeslottedProps extends BeDeslottedVirtualProps{

@@ -9,7 +9,7 @@ export class BeDeslottedController implements BeDeslottedActions{
         this.getProps(this);
     }
 
-    getProps({props, proxy}: this){
+    getProps({props, proxy, propMap}: this){
         const propArr = Array.isArray(props) ? props : [props];
         let host: any;
         const assignedNodes = proxy.assignedNodes();
@@ -19,7 +19,8 @@ export class BeDeslottedController implements BeDeslottedActions{
                     if(host === undefined){
                         host = (<any>proxy.getRootNode()).host;
                     }
-                    host[prop] = (<any>assignedNode)[prop];
+                    const hostKey = propMap === undefined ? prop : propMap[prop];
+                    host[hostKey] = (<any>assignedNode)[prop];
                 }
             }
         }
@@ -48,7 +49,7 @@ define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedA
     config:{
         tagName,
         propDefaults:{
-            virtualProps: ['props'],
+            virtualProps: ['props', 'propMap'],
             upgrade,
             ifWantsToBe,
             finale: 'finale',

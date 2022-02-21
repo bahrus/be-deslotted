@@ -5,7 +5,7 @@ export class BeDeslottedController {
         proxy.addEventListener('slotchange', this.handleSlotChange);
         this.getProps(this);
     }
-    getProps({ props, proxy }) {
+    getProps({ props, proxy, propMap }) {
         const propArr = Array.isArray(props) ? props : [props];
         let host;
         const assignedNodes = proxy.assignedNodes();
@@ -15,7 +15,8 @@ export class BeDeslottedController {
                     if (host === undefined) {
                         host = proxy.getRootNode().host;
                     }
-                    host[prop] = assignedNode[prop];
+                    const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] : prop;
+                    host[hostKey] = assignedNode[prop];
                 }
             }
         }
@@ -37,7 +38,7 @@ define({
     config: {
         tagName,
         propDefaults: {
-            virtualProps: ['props'],
+            virtualProps: ['props', 'propMap'],
             upgrade,
             ifWantsToBe,
             finale: 'finale',

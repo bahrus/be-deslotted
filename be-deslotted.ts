@@ -19,7 +19,7 @@ export class BeDeslottedController implements BeDeslottedActions{
                     if(host === undefined){
                         host = (<any>proxy.getRootNode()).host;
                     }
-                    const hostKey = propMap === undefined ? prop : propMap[prop];
+                    const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] :  prop;
                     host[hostKey] = (<any>assignedNode)[prop];
                 }
             }

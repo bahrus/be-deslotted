@@ -11,12 +11,13 @@ export class BeDeslottedController {
         const assignedNodes = proxy.assignedNodes();
         for (const assignedNode of assignedNodes) {
             for (const prop of propArr) {
-                if (assignedNode[prop] !== undefined) {
+                const propVal = prop === '.' ? assignedNode : assignedNode[prop];
+                if (propVal !== undefined) {
                     if (host === undefined) {
                         host = proxy.getRootNode().host;
                     }
                     const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] : prop;
-                    host[hostKey] = assignedNode[prop];
+                    host[hostKey] = propVal;
                 }
             }
         }

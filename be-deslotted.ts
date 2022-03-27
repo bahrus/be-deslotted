@@ -15,12 +15,13 @@ export class BeDeslottedController implements BeDeslottedActions{
         const assignedNodes = proxy.assignedNodes();
         for(const assignedNode of assignedNodes){
             for(const prop of propArr){
-                if((<any>assignedNode)[prop] !== undefined){
+                const propVal = prop === '.' ? assignedNode : (<any>assignedNode)[prop];
+                if(propVal !== undefined){
                     if(host === undefined){
                         host = (<any>proxy.getRootNode()).host;
                     }
                     const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] :  prop;
-                    host[hostKey] = (<any>assignedNode)[prop];
+                    host[hostKey] = propVal;
                 }
             }
         }

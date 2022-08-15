@@ -4,6 +4,12 @@ Transfer values from light children to host.
 
 [![Actions Status](https://github.com/bahrus/be-deslotted/workflows/CI/badge.svg)](https://github.com/bahrus/be-deslotted/actions?query=workflow%3ACI)
 
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-deslotted?style=for-the-badge)](https://bundlephobia.com/result?p=be-deslotted)
+
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-deslotted?compression=gzip">
+
+<a href="https://nodei.co/npm/be-deslotted/"><img src="https://nodei.co/npm/be-deslotted.png"></a>
+
 ```html
 <my-custom-element>
     #shadow

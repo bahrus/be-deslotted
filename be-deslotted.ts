@@ -2,7 +2,7 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeDeslottedVirtualProps, BeDeslottedProps, BeDeslottedActions} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeDeslottedController implements BeDeslottedActions{
+export class BeDeslottedController extends EventTarget implements BeDeslottedActions{
     
     onProps({props, proxy}: this){
         proxy.addEventListener('slotchange', this.handleSlotChange);
@@ -25,6 +25,7 @@ export class BeDeslottedController implements BeDeslottedActions{
                 }
             }
         }
+        proxy.resolved = true;
     }
 
     finale(){

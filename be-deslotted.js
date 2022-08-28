@@ -1,6 +1,6 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from 'be-hive/register.js';
-export class BeDeslottedController {
+export class BeDeslottedController extends EventTarget {
     onProps({ props, proxy }) {
         proxy.addEventListener('slotchange', this.handleSlotChange);
         this.getProps(this);
@@ -21,6 +21,7 @@ export class BeDeslottedController {
                 }
             }
         }
+        proxy.resolved = true;
     }
     finale() {
         this.disconnect(this);

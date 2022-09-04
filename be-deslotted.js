@@ -1,9 +1,17 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from 'be-hive/register.js';
 export class BeDeslottedController extends EventTarget {
-    onProps({ props, proxy }) {
-        proxy.addEventListener('slotchange', this.handleSlotChange);
-        this.getProps(this);
+    #slotChangeAbortController;
+    onProps(pp) {
+        const { proxy } = pp;
+        this.disconnect();
+        this.#slotChangeAbortController = new AbortController();
+        proxy.addEventListener('slotchange', e => {
+            this.getProps(pp);
+        }, {
+            signal: this.#slotChangeAbortController.signal,
+        });
+        this.getProps(pp);
     }
     getProps({ props, proxy, propMap }) {
         const propArr = Array.isArray(props) ? props : [props];
@@ -23,14 +31,12 @@ export class BeDeslottedController extends EventTarget {
         }
         proxy.resolved = true;
     }
+    disconnect() {
+        if (this.#slotChangeAbortController !== undefined)
+            this.#slotChangeAbortController.abort();
+    }
     finale() {
-        this.disconnect(this);
-    }
-    handleSlotChange(e) {
-        this.getProps(this);
-    }
-    disconnect({ proxy }) {
-        proxy.removeEventListener('slotchange', this.handleSlotChange);
+        this.disconnect();
     }
 }
 const tagName = 'be-deslotted';

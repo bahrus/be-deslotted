@@ -1,16 +1,25 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeDeslottedVirtualProps, BeDeslottedProps, BeDeslottedActions} from './types';
+import {BeDeslottedVirtualProps, PP, BeDeslottedActions, Proxy} from './types';
 import {register} from 'be-hive/register.js';
 
 export class BeDeslottedController extends EventTarget implements BeDeslottedActions{
     
-    onProps({props, proxy}: this){
-        proxy.addEventListener('slotchange', this.handleSlotChange);
-        this.getProps(this);
+    #slotChangeAbortController: AbortController | undefined;
+
+    onProps(pp: PP){
+        const {proxy} = pp;
+        this.disconnect();
+        this.#slotChangeAbortController = new AbortController();
+        proxy.addEventListener('slotchange', e => {
+            this.getProps(pp);
+        }, {
+            signal: this.#slotChangeAbortController.signal,
+        });
+        this.getProps(pp);
     }
 
-    getProps({props, proxy, propMap}: this){
-        const propArr = Array.isArray(props) ? props : [props];
+    getProps({props, proxy, propMap}: PP){
+        const propArr = Array.isArray(props) ? props : [props] as string[];
         let host: any;
         const assignedNodes = proxy.assignedNodes();
         for(const assignedNode of assignedNodes){
@@ -28,26 +37,26 @@ export class BeDeslottedController extends EventTarget implements BeDeslottedAct
         proxy.resolved = true;
     }
 
+    disconnect(){
+        if(this.#slotChangeAbortController !== undefined) this.#slotChangeAbortController.abort();
+    }
+
     finale(){
-        this.disconnect(this);
+        this.disconnect();
     }
 
-    handleSlotChange(e: Event){
-        this.getProps(this);
-    }
-
-    disconnect({proxy}: this){
-        proxy.removeEventListener('slotchange', this.handleSlotChange);
-    }
 }
 
-export interface BeDeslottedController extends BeDeslottedProps{}
+export interface DeslottedController {
+    proxy: Proxy;
+}
+
 
 const tagName = 'be-deslotted';
 const ifWantsToBe = 'deslotted';
 const upgrade = 'slot';
 
-define<BeDeslottedProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedActions>, BeDeslottedActions>({
+define<BeDeslottedVirtualProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedActions>, BeDeslottedActions>({
     config:{
         tagName,
         propDefaults:{

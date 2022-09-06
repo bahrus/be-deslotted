@@ -1,24 +1,24 @@
 import {MinimalProxy} from 'be-decorated/types';
 
 
-export interface BeDeslottedEndUserProps {
+export interface EndUserProps {
     props?: string | string[];
     propMap?: {[key: string]: string};
 }
 
-export interface BeDeslottedVirtualProps extends BeDeslottedEndUserProps, MinimalProxy<HTMLSlotElement>{
+export interface VirtualProps extends EndUserProps, MinimalProxy<HTMLSlotElement>{
 }
 
-export type Proxy = HTMLSlotElement & BeDeslottedVirtualProps;
+export type Proxy = HTMLSlotElement & VirtualProps;
 
-export interface ProxyProps extends BeDeslottedVirtualProps {
+export interface ProxyProps extends VirtualProps {
     proxy: Proxy;
 }
 
 export type PP = ProxyProps;
 
 
-export interface BeDeslottedActions{
+export interface Actions{
     onProps(pp: PP): void;
     finale(): void;
 }

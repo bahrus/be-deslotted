@@ -1,8 +1,8 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeDeslottedVirtualProps, PP, BeDeslottedActions, Proxy} from './types';
+import {VirtualProps, PP, Actions, Proxy} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeDeslottedController extends EventTarget implements BeDeslottedActions{
+export class BeDeslottedController extends EventTarget implements Actions{
     
     #slotChangeAbortController: AbortController | undefined;
 
@@ -56,7 +56,7 @@ const tagName = 'be-deslotted';
 const ifWantsToBe = 'deslotted';
 const upgrade = 'slot';
 
-define<BeDeslottedVirtualProps & BeDecoratedProps<BeDeslottedVirtualProps, BeDeslottedActions>, BeDeslottedActions>({
+define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{

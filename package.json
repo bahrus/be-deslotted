@@ -13,16 +13,16 @@
     "slots"
   ],
   "dependencies": {
-    "be-decorated": "0.0.153",
-    "be-hive": "0.0.63",
-    "trans-render": "0.0.585"
+    "be-decorated": "0.0.172",
+    "be-hive": "0.0.73",
+    "trans-render": "0.0.625"
   },
   "devDependencies": {
-    "@playwright/test": "1.25.1",
-    "may-it-serve": "0.0.2",
+    "@playwright/test": "1.27.1",
+    "may-it-serve": "0.0.3",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
-    "xtal-editor": "0.0.193",
+    "xtal-editor": "0.0.196",
     "xtal-shell": "0.0.27"
   },
   "exports": {

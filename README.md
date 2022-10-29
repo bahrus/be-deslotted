@@ -6,7 +6,7 @@ Transfer values from light children to host.
 
 [![Actions Status](https://github.com/bahrus/be-deslotted/workflows/CI/badge.svg)](https://github.com/bahrus/be-deslotted/actions?query=workflow%3ACI)
 
-Size of package, including custom element behavior framework (be-decorated):
+Size of package, including custom element behavior framework (be-decorated/be-hive):
 
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-deslotted?style=for-the-badge)](https://bundlephobia.com/result?p=be-deslotted)
 

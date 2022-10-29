@@ -1,4 +1,4 @@
-import {MinimalProxy} from 'be-decorated/types';
+import {MinimalProxy, EventConfigs} from 'be-decorated/types';
 
 
 export interface EndUserProps {
@@ -17,8 +17,14 @@ export interface ProxyProps extends VirtualProps {
 
 export type PP = ProxyProps;
 
+export type PPP = Partial<PP>;
+
+export type PPE = [PPP, EventConfigs<Proxy, Actions>]
+
 
 export interface Actions{
-    onProps(pp: PP): void;
-    finale(): void;
+    onProps(pp: PP): PPE;
+
+    getProps(pp: PP): PPP;
+    //finale(): void;
 }

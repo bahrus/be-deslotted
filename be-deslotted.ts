@@ -1,69 +1,43 @@
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {VirtualProps, PP, Actions, Proxy} from './types';
+import {VirtualProps, PP, Actions, Proxy, PPE, PPP} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeDeslottedController extends EventTarget implements Actions{
+export class BeDeslotted extends EventTarget implements Actions{
     
-    #slotChangeAbortController: AbortController | undefined;
-
     onProps(pp: PP){
-        const {proxy} = pp;
-        this.disconnect();
-        this.#slotChangeAbortController = new AbortController();
-        proxy.addEventListener('slotchange', e => {
-            this.getProps(pp);
-        }, {
-            signal: this.#slotChangeAbortController.signal,
-        });
-        this.getProps(pp);
+        const {self} = pp;
+        return [{}, {getProps: {on: 'slotchange', of: self, doInit: true}}] as PPE;
     }
 
-    getProps({props, proxy, propMap}: PP){
+    getProps({props, self, propMap}: PP){
         const propArr = Array.isArray(props) ? props : [props] as string[];
         let host: any;
-        const assignedNodes = proxy.assignedNodes();
+        const assignedNodes = self.assignedNodes();
         for(const assignedNode of assignedNodes){
             for(const prop of propArr){
                 const propVal = prop === '.' ? assignedNode : (<any>assignedNode)[prop];
                 if(propVal !== undefined){
                     if(host === undefined){
-                        host = (<any>proxy.getRootNode()).host;
+                        host = (<any>self.getRootNode()).host;
                     }
                     const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] :  prop;
                     host[hostKey] = propVal;
                 }
             }
         }
-        proxy.resolved = true;
+        return {resolved: true} as PPP;
     }
-
-    disconnect(){
-        if(this.#slotChangeAbortController !== undefined) this.#slotChangeAbortController.abort();
-    }
-
-    finale(){
-        this.disconnect();
-    }
-
 }
 
-export interface DeslottedController {
-    proxy: Proxy;
-}
 
 
 const tagName = 'be-deslotted';
-const ifWantsToBe = 'deslotted';
-const upgrade = 'slot';
 
 define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{
             virtualProps: ['props', 'propMap'],
-            upgrade,
-            ifWantsToBe,
-            finale: 'finale',
             primaryProp: 'props',
             forceVisible: ['slot'],
         },
@@ -72,7 +46,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         }
     },
     complexPropDefaults:{
-        controller: BeDeslottedController
+        controller: BeDeslotted
     }
 });
-register(ifWantsToBe, upgrade, tagName);
+register('deslotted', 'slot', tagName);

@@ -1,20 +1,30 @@
-import { define } from 'be-decorated/DE.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-export class BeDeslotted extends EventTarget {
-    onProps(pp) {
-        const { self } = pp;
-        return [{}, { getProps: { on: 'slotchange', of: self, doInit: true } }];
+export class BeDeslotted extends BE {
+    static get beConfig() {
+        return {
+            parse: true,
+            primaryProp: 'props'
+        };
     }
-    getProps({ props, self, propMap }) {
+    onProps(self) {
+        const { enhancedElement } = self;
+        return [{}, {
+                getProps: { on: 'slotchange', of: enhancedElement, doInit: true }
+            }];
+    }
+    getProps(self) {
+        const { props, enhancedElement, propMap } = self;
         const propArr = Array.isArray(props) ? props : [props];
         let host;
-        const assignedNodes = self.assignedNodes();
+        const assignedNodes = enhancedElement.assignedNodes();
         for (const assignedNode of assignedNodes) {
             for (const prop of propArr) {
                 const propVal = prop === '.' ? assignedNode : assignedNode[prop];
                 if (propVal !== undefined) {
                     if (host === undefined) {
-                        host = self.getRootNode().host;
+                        host = enhancedElement.getRootNode().host;
                     }
                     const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] : prop;
                     host[hostKey] = propVal;
@@ -25,20 +35,21 @@ export class BeDeslotted extends EventTarget {
     }
 }
 const tagName = 'be-deslotted';
-define({
+const ifWantsToBe = 'deslotted';
+const upgrade = 'slot';
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            virtualProps: ['props', 'propMap'],
-            primaryProp: 'props',
-            forceVisible: ['slot'],
+            ...propDefaults
+        },
+        propInfo: {
+            ...propInfo
         },
         actions: {
-            onProps: 'props'
+            onProps: 'props',
         }
     },
-    complexPropDefaults: {
-        controller: BeDeslotted
-    }
+    superclass: BeDeslotted
 });
-register('deslotted', 'slot', tagName);
+register(ifWantsToBe, upgrade, tagName);

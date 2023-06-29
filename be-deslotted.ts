@@ -1,52 +1,64 @@
-import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {VirtualProps, PP, Actions, Proxy, PPE, PPP} from './types';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeDeslotted extends EventTarget implements Actions{
-    
-    onProps(pp: PP){
-        const {self} = pp;
-        return [{}, {getProps: {on: 'slotchange', of: self, doInit: true}}] as PPE;
+export class BeDeslotted extends BE<AP, Actions, HTMLSlotElement> implements Actions{
+    static  override get beConfig(){
+        return {
+            parse: true,
+            primaryProp: 'props'
+        } as BEConfig
+    }
+    onProps(self: this): POA {
+        const {enhancedElement} = self;
+        return [{}, {
+            getProps: {on:'slotchange', of: enhancedElement, doInit: true}
+        }]
     }
 
-    getProps({props, self, propMap}: PP){
+    getProps(self: this): Partial<AllProps> {
+        const {props, enhancedElement, propMap} = self;
         const propArr = Array.isArray(props) ? props : [props] as string[];
         let host: any;
-        const assignedNodes = self.assignedNodes();
+        const assignedNodes = enhancedElement.assignedNodes();
         for(const assignedNode of assignedNodes){
             for(const prop of propArr){
                 const propVal = prop === '.' ? assignedNode : (<any>assignedNode)[prop];
                 if(propVal !== undefined){
                     if(host === undefined){
-                        host = (<any>self.getRootNode()).host;
+                        host = (<any>enhancedElement.getRootNode()).host;
                     }
                     const hostKey = propMap !== undefined && propMap[prop] !== undefined ? propMap[prop] :  prop;
                     host[hostKey] = propVal;
                 }
             }
         }
-        return {resolved: true} as PPP;
+        return {resolved: true};
     }
 }
 
-
+export interface BeDeslotted extends AllProps{}
 
 const tagName = 'be-deslotted';
+const ifWantsToBe = 'deslotted';
+const upgrade = 'slot';
 
-define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
+const xe = new XE<AP, Actions>({
     config:{
         tagName,
         propDefaults:{
-            virtualProps: ['props', 'propMap'],
-            primaryProp: 'props',
-            forceVisible: ['slot'],
+            ...propDefaults
+        },
+        propInfo:{
+            ...propInfo
         },
         actions:{
-            onProps:'props'
+            onProps: 'props',
         }
     },
-    complexPropDefaults:{
-        controller: BeDeslotted
-    }
+    superclass: BeDeslotted
 });
-register('deslotted', 'slot', tagName);
+
+register(ifWantsToBe, upgrade, tagName);

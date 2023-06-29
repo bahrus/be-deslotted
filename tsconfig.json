@@ -8,7 +8,7 @@
 		"strict": true
 	},
 	"files":[
-		"be-deslotted2.ts"
+		"be-deslotted.ts"
 	],
 	"exclude":[
 		"node_modules"

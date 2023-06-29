@@ -1,30 +1,29 @@
-import {MinimalProxy, EventConfigs} from 'be-decorated/types';
+import { ActionOnEventConfigs } from "trans-render/froop/types";
+import {IBE} from 'be-enhanced/types';
 
 
-export interface EndUserProps {
+export interface EndUserProps extends IBE<HTMLSlotElement> {
     props?: string | string[];
     propMap?: {[key: string]: string};
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy<HTMLSlotElement>{
+export interface AllProps extends EndUserProps{
 }
 
-export type Proxy = HTMLSlotElement & VirtualProps;
+export interface AllProps extends EndUserProps {}
 
-export interface ProxyProps extends VirtualProps {
-    proxy: Proxy;
-}
+export type AP = AllProps;
 
-export type PP = ProxyProps;
+export type PAP = Partial<AP>;
 
-export type PPP = Partial<PP>;
+export type ProPAP = Promise<PAP>;
 
-export type PPE = [PPP, EventConfigs<Proxy, Actions>]
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>]
 
 
 export interface Actions{
-    onProps(pp: PP): PPE;
+    onProps(self: this): POA;
 
-    getProps(pp: PP): PPP;
+    getProps(self: this): PAP;
     //finale(): void;
 }

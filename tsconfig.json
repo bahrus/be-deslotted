@@ -5,15 +5,13 @@
 		"sourceMap": false,
 		"experimentalDecorators": false,
 		"newLine": "LF",
-		"strict": true,
-		"watch": true
+		"strict": true
 	},
 	"files":[
-		"be-deslotted.ts"
+		"be-deslotted2.ts"
 	],
 	"exclude":[
-		"build",
-		"node_modules",
+		"node_modules"
 	]
 
 }

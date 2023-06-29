@@ -2,31 +2,22 @@
 
 Transfer values from light children to host.
 
-
-
 [![Actions Status](https://github.com/bahrus/be-deslotted/workflows/CI/badge.svg)](https://github.com/bahrus/be-deslotted/actions?query=workflow%3ACI)
-
-Size of package, including custom element behavior framework (be-decorated/be-hive):
-
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-deslotted?style=for-the-badge)](https://bundlephobia.com/result?p=be-deslotted)
-
-Size of new code in this package:
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-deslotted?compression=gzip">
-
 <a href="https://nodei.co/npm/be-deslotted/"><img src="https://nodei.co/npm/be-deslotted.png"></a>
 
 ```html
 <my-custom-element>
     #shadow
         <slot name=link be-deslotted=href></slot>
-    <a slot=link href=//cnn.com>This is CNN</a>
+    <a slot=link href=https://cnn.com>This is CNN</a>
 </my-custom-element>
 ```
 
-my-custom-element's href property gets set to //cnn.com
+my-custom-element's href property gets set to https://cnn.com.
 
-Props can be mapped via propMap.  [TODO]:  Show example.
+If the name of the host property doesn't match the name of the light child property that needs passing, this can be managed via the propMap setting.  [TODO]:  Show example.
 
 ## Viewing Locally
 

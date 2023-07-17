@@ -13,16 +13,14 @@
     "slots"
   ],
   "dependencies": {
-    "be-enhanced": "0.0.33",
-    "be-hive": "0.0.110",
-    "trans-render": "0.0.693",
-    "xtal-element": "0.0.571"
+    "be-enhanced": "0.0.36",
+    "be-hive": "0.0.115",
+    "trans-render": "0.0.699",
+    "xtal-element": "0.0.574"
   },
   "devDependencies": {
-    "@playwright/test": "1.35.1",
+    "@playwright/test": "1.36.1",
     "may-it-serve": "0.0.5",
-    "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.8.3",
     "xtal-shell": "0.0.27"
   },
   "exports": {
@@ -36,7 +34,7 @@
   "scripts": {
     "serve": "node node_modules/may-it-serve",
     "test": "playwright test",
-    "package-check": "package-check"
+    "update": "ncu -u && npm install"
   },
   "repository": {
     "type": "git",

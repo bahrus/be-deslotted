@@ -19,6 +19,26 @@ my-custom-element's href property gets set to https://cnn.com.
 
 If the name of the host property doesn't match the name of the light child property that needs passing, this can be managed via the propMap setting.  [TODO]:  Show example.
 
+## Hemingway Notation [TODO]
+
+```html
+<my-custom-element>
+    #shadow
+        <slot name=link be-deslotted='from href.'></slot>
+    <a slot=link href=https://cnn.com>This is CNN</a>
+</my-custom-element>
+```
+
+```html
+<my-custom-element>
+    #shadow
+        <slot name=inputEl be-deslotted='from value as number to numericProp.
+            From dataset:msg to stringProp.
+        '></slot>
+    <input data-msg=hello slot=inputEl>
+</my-custom-element>
+```
+
 ## Viewing Locally
 
 1.  Install git.

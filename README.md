@@ -1,4 +1,4 @@
-# be-deslotted
+# be-deslotted [TODO]
 
 Transfer values from light children to host.
 
@@ -7,19 +7,8 @@ Transfer values from light children to host.
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-deslotted?compression=gzip">
 <a href="https://nodei.co/npm/be-deslotted/"><img src="https://nodei.co/npm/be-deslotted.png"></a>
 
-```html
-<my-custom-element>
-    #shadow
-        <slot name=link be-deslotted=href></slot>
-    <a slot=link href=https://cnn.com>This is CNN</a>
-</my-custom-element>
-```
 
-my-custom-element's href property gets set to https://cnn.com.
-
-If the name of the host property doesn't match the name of the light child property that needs passing, this can be managed via the propMap setting.  [TODO]:  Show example.
-
-## Hemingway Notation [TODO]
+## Example 1 [TODO]
 
 ```html
 <my-custom-element>
@@ -34,12 +23,14 @@ If the name of the host property doesn't match the name of the light child prope
 ```html
 <my-custom-element>
     #shadow
-        <slot name=inputEl be-deslotted='from value as number to numericProp.
+        <slot name=inputEl be-deslotted='from value as number to numeric prop.
             From dataset:msg to stringProp.
         '></slot>
-    <input data-msg=hello slot=inputEl>
+    <input type=number data-msg=hello slot=inputEl>
 </my-custom-element>
 ```
+
+... sets oMyCustomElement's numericProp property to oInput.valueAsNumber at the moment when the input element is slotted.  It does not 
 
 ## Viewing Locally
 

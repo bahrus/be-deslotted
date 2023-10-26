@@ -29,6 +29,8 @@ If the name of the host property doesn't match the name of the light child prope
 </my-custom-element>
 ```
 
+... sets oMyCustomElement's href property to https://cnn.com.
+
 ```html
 <my-custom-element>
     #shadow
